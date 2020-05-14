@@ -20,16 +20,13 @@ public class TargetNumber {
 		int r = numbers.length;
 		String[] oper = {"+", "-"};
 		LinkedList<String> operList = new LinkedList();
-
 		dfs(oper, operList, 2, r);
-
 		return answer;
 	}
 
 	public static void dfs(String[] oper, LinkedList<String> operList, int n, int r) {
 		if(operList.size() == r) {
 			isTarget(operList);
-			
 			return;
 		}
 
@@ -43,13 +40,12 @@ public class TargetNumber {
 	public static void isTarget(LinkedList<String> operList) {
 		double result = 0;
 		for(int i = 0; i < operList.size(); i++) {
-			if(operList.get(i).equals("+")) {
+			if(operList.get(i).equals("+")) 
 				result += numbers[i];
-			} else {
+			else 
 				result -= numbers[i];
-			}
+
 		}
-		
 		if(result == target) {
 			answer++;
 		}
