@@ -2,7 +2,7 @@
  * @author Minha Gwon
  * @date 2020. 5. 19.
  * 여행 경로(Level 3)
- * https://programmers.co.kr/learn/courses/30/lessons/43164#qna
+ * https://programmers.co.kr/learn/courses/30/lessons/43164
  */
 
 import java.util.ArrayList;
