@@ -88,7 +88,7 @@ public class Song {
 			String melody = sb.toString();
 			if(melody.contains(m)) {
 				int index = melody.indexOf(m) + m.length();
-				if(melody.charAt(index) != '#') {
+				if(index >= melody.length() && melody.charAt(index) != '#') {
 					if(maxTime < playTime) {
 						maxTime = playTime;
 						result = title;
