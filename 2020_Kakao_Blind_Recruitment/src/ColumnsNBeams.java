@@ -9,7 +9,7 @@
 import java.util.ArrayList;
 
 public class ColumnsNBeams {
-	public static int N;
+	static int N;
 	static int[][] columns;
 	static int[][] beams;
 
@@ -35,13 +35,11 @@ public class ColumnsNBeams {
 
 		N = n;
 
-		columns = new int[n+1][n+1];
-		beams = new int[n+1][n+1];
+		columns = new int[n+2][n+2];
+		beams = new int[n+2][n+2];
 
-		c = new Node[n+1][n+1];
-		b = new Node[n+1][n+1];
-
-
+		c = new Node[n+2][n+2];
+		b = new Node[n+2][n+2];
 
 		for(int i = 0; i < build_frame.length; i++) {
 			int[] frame = build_frame[i];
@@ -50,8 +48,6 @@ public class ColumnsNBeams {
 			int a = frame[2];
 			int b = frame[3];
 
-			//.out.println(x + " " + y + " " + a + " " + b);
-
 			if(b == 0) { // 삭제할 경우 
 				delete(x, y, a);
 			} else { // 설치할 경우 
@@ -59,8 +55,8 @@ public class ColumnsNBeams {
 			}
 		}  
 
-		for(int i = 0; i < N+1; i++) {
-			for(int j = 0; j < N+1; j++) {
+		for(int i = 0; i < n+2; i++) {
+			for(int j = 0; j < n+2; j++) {
 
 				if(c[i][j] != null) {
 					int[] arr = {i, j, 0};
@@ -71,8 +67,6 @@ public class ColumnsNBeams {
 					int[] arr = {i, j, 1};
 					list.add(arr);
 				}
-
-
 			}
 		}
 
@@ -83,7 +77,7 @@ public class ColumnsNBeams {
 			answer[i][1] = list.get(i)[1];
 			answer[i][2] = list.get(i)[2];
 
-			System.out.println(answer[i][0] + " " + answer[i][1] + " " + answer[i][2]);
+			//System.out.println(answer[i][0] + " " + answer[i][1] + " " + answer[i][2]);
 		}
 
 		return answer;
@@ -100,16 +94,19 @@ public class ColumnsNBeams {
 	}
 
 	public static void delete(int x, int y, int a) {
-		int[][] copyCol = new int[N+1][N+1];
-		int[][] copyBeam = new int[N+1][N+1];
+		int[][] copyCol = new int[N+2][N+2];
+		int[][] copyBeam = new int[N+2][N+2];
 
-		for(int i = 0; i < N+1; i++) {
-			System.arraycopy(columns[i], 0, copyCol[i], 0, N+1);
-			System.arraycopy(beams[i], 0, copyBeam[i], 0, N+1);
+		for(int i = 0; i < N+2; i++) {
+			System.arraycopy(columns[i], 0, copyCol[i], 0, N+2);
+			System.arraycopy(beams[i], 0, copyBeam[i], 0, N+2);
 		}
 
 		if(a == 0) { // 기둥일 때 
+			//System.out.println("기둥일 때 ");
 			copyCol[x][y] -= 1;
+			copyCol[x][y+1] -= 1;
+			
 			if(isDelete(copyCol, copyBeam)) {
 				columns[x][y] -= 1;
 				columns[x][y+1] -= 1;
@@ -122,7 +119,10 @@ public class ColumnsNBeams {
 				}
 			}		
 		} else { // 보일 때 
+			//System.out.println("보일 때 ");
 			copyBeam[x][y] -= 1;
+			copyBeam[x+1][y] -= 1;
+			
 
 			if(isDelete(copyCol, copyBeam)) {
 				beams[x][y] -= 1;
@@ -139,13 +139,18 @@ public class ColumnsNBeams {
 	}
 
 	public static boolean isDelete(int[][] copyCol, int[][] copyBeam) {
+//		System.out.println("삭제 기둥  ");
+//		print(copyCol);
+//		System.out.println("삭제 보   ");
+//		print(copyBeam);
+		
 		boolean flag = true;
 
 		for(int i = 0; i < col.size(); i++) {
 			int x = col.get(i).x1;
 			int y = col.get(i).y1;
 
-			if(y == 0 || copyBeam[x][y] >= 1 || copyBeam[x][y+1] >= 1 || copyCol[x][y] >= 1 ||copyCol[x][y+1] >= 1) {
+			if(y == 0 || copyBeam[x][y] >= 1 || copyBeam[x][y+1] >= 1 || copyCol[x][y] >= 1) {
 				flag = true;
 			} else {
 				flag = false;
@@ -159,18 +164,15 @@ public class ColumnsNBeams {
 
 			if(copyCol[x][y] >= 1 || copyCol[x+1][y] >= 1) { // 한쪽 끝 기둥일 경우 
 				flag = true;
-			} else {
-				flag = false;
-				break;
-			}
-
-			if(copyBeam[x][y] >= 1 && copyBeam[x+1][y] >= 1) { // 양쪽 끝 보일 경우 
+			} else if(copyBeam[x][y] > 1 && copyBeam[x+1][y] > 1) { // 양쪽 끝 보일 경우 
 				flag = true;
 			} else {
 				flag = false;
 				break;
 			}
 		}
+		
+		//System.out.println("flag : " + flag);
 
 		if(flag)
 			return true;
@@ -183,7 +185,7 @@ public class ColumnsNBeams {
 	public static void create(int x, int y, int a) {
 		if(a == 0) { // 기둥일 때 
 			// 바닥, 보, 기둥에 세울 때만 설치 
-			if(y == 0 || beams[x][y] >= 1 || beams[x][y+1] >= 1 || columns[x][y] >= 1 || columns[x][y+1] >= 1) {
+			if(y == 0 || beams[x][y] >= 1 || beams[x][y+1] >= 1 || columns[x][y] >= 1) {
 				columns[x][y] += 1;
 				columns[x][y+1] += 1;
 
@@ -200,15 +202,19 @@ public class ColumnsNBeams {
 				Node node = new Node(x, y, x, y+1);
 				beam.add(node);
 				b[x][y] = node;
-			}
-
-			if(beams[x][y] >= 1 && beams[x+1][y] >= 1) { // 양쪽 끝 보일 경우 
+				
+//				System.out.println("보 삽입 1 :  " + x + " " + y + " " + a);
+//				print(beams);
+			} else if(beams[x][y] >= 1 && beams[x+1][y] >= 1) { // 양쪽 끝 보일 경우 
 				beams[x][y] += 1;
 				beams[x+1][y] += 1;
 
 				Node node = new Node(x, y, x, y+1);
 				beam.add(node);
 				b[x][y] = node;
+				
+//				System.out.println("보 삽입 2 :  " + x + " " + y + " " + a);
+//				print(beams);
 			}
 		}
 	}
