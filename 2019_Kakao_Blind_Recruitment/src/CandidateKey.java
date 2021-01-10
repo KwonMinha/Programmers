@@ -25,13 +25,9 @@ public class CandidateKey {
 		int column = relation[0].length; // 총 애트리뷰트 수 
 		boolean[] visited = new boolean[column]; // 조합을 뽑기 위한 visited 배열 
 		
-		String lastNum = "0"; // 마지막 후보키추가를 위한 변수 
-		for(int i = 1; i < column; i++) { // 조합을 이용해 모든 후보키 조합 추출 
+		for(int i = 1; i <= column; i++) { // 조합을 이용해 모든 후보키 조합 추출 
 			comb(visited, 0, i);
-			lastNum += i;
 		}
-		list.add(lastNum); // 마지막에 모든 속성의 집합으로 만든 후보키 추가 ex. 속성의 총 개수 4라면 0123
-
 		// 후보키 유일성 판별
 		for(int i = 0; i < list.size(); i++) {  
 			HashSet<String> set = new HashSet<>(); // 중복 없이 저장하는 HashSet을 이용해 후보키 조합으로 뽑아진 튜플 저장 
@@ -73,7 +69,7 @@ public class CandidateKey {
 	}
 
 	// 모든 후보키 조합을 뽑는 함수 
-	// 애트리뷰트 수가 4일 경우, 0, 1, 2, 3, 01, 02, 03, ... 023, 123 String 형태로 뽑아짐 
+	// 애트리뷰트 수가 4일 경우, 0, 1, 2, 3, 01, 02, 03, ... 023, 123, 0123 String 형태로 뽑아짐 
 	public static void comb(boolean[] visited, int start, int r) {
 		if(r == 0) { 
 			String num = "";
