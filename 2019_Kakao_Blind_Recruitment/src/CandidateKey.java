@@ -47,7 +47,7 @@ public class CandidateKey {
 			if(set.size() == tuple) { //전체 튜플의 수와 후보키 조합으로 뽑아진 튜플의 수가 같다면 후보키 유일성 통과 
 				// 후보키 최소성 판별 
 				// containsAll 메서드 사용하기 위해 List 사용
-				// 기존의 String 비교 contains 메서드 쓰면 123, 13을 포함하지 않음으로 판별하기 때문 
+				// 기존의 String의 contains 메서드 쓰면 123, 13을 포함하지 않음으로 판별하기 때문 
 				List<String> cKey = Arrays.asList(list.get(i).split("")); 
 
 				boolean flag = true;
