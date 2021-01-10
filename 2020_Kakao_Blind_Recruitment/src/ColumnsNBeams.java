@@ -16,18 +16,14 @@ public class ColumnsNBeams {
 	public static void main(String[] args) {
 		int n = 5;
 		//int[][] build_frame = {{1,0,0,1},{1,1,1,1},{2,1,0,1},{2,2,1,1},{5,0,0,1},{5,1,0,1},{4,2,1,1},{3,2,1,1}};
-
 		int[][] build_frame = {{0,0,0,1},{2,0,0,1},{4,0,0,1},{0,1,1,1},{1,1,1,1},{2,1,1,1},{3,1,1,1},{2,0,0,0},{1,1,1,0},{2,2,0,1}};
-
 
 		solution(n, build_frame);
 	}
 
 	public static int[][] solution(int n, int[][] build_frame) {
 		N = n;
-
 		int[][] answer;
-		
 		columns = new boolean[N+3][N+3];
 		beams = new boolean[N+3][N+3];
 
@@ -44,20 +40,20 @@ public class ColumnsNBeams {
 				create(x, y, a);
 			}
 		}  
-		
+
 		ArrayList<int[]> list = new ArrayList<>();
 		for(int i = 1; i <= N+1; ++i) {
 			for(int j = 1; j <= N+1; ++j) {
 				if(columns[i][j]) {
 					list.add(new int[] {i-1, j-1, 0});
 				}
-				
+
 				if(beams[i][j]) {
 					list.add(new int[] {i-1, j-1, 1});
 				}
 			}
 		}
-		
+
 		answer = new int[list.size()][3];
 		for(int i = 0; i < answer.length; i++) {
 			answer[i][0] = list.get(i)[0];
@@ -67,18 +63,18 @@ public class ColumnsNBeams {
 			System.out.println(answer[i][0] + " " + answer[i][1] + " " + answer[i][2]);
 		}
 		
+//		 int index = 0;
+//		 int count = 0; // 삭제시 count--;
+//         int[][] answer = new int[structureCount][3];
+//         
+//         for(int i = 1 ; i <= n + 1 ; ++i){
+//             for(int j = 1 ; j <= n + 1 ; ++j){
+//                 if(pillars[i][j]) answer[index++] = new int[]{i - 1, j - 1, PILLAR};
+//                 if(beams[i][j]) answer[index++] = new int[]{i - 1, j - 1, BEAM};
+//             }
+//         }
 
 		return answer;
-	}
-
-	public static void print(int[][] arr) {
-		for(int i = 0; i < arr.length; i++) {
-			for(int j = 0; j < arr.length; j++) {
-				System.out.print(arr[i][j] + " ");
-			}
-			System.out.println();
-		}
-		System.out.println();
 	}
 
 	// 설치하기 
@@ -104,32 +100,29 @@ public class ColumnsNBeams {
 
 		// 삭제 후 남은 기둥과 보가 요건에 충족하는지 다시 세우면서 확인 
 		if(!canDelete(x, y)) { // 삭제할 수 없다면 
-			if(a == 0) { // 기둥 원상태로 
+			if(a == 0)  // 기둥 원상태로 
 				columns[x][y] = true;	
-			} else { // 보 원상태로 
+			else  // 보 원상태로 
 				beams[x][y] = true;
-			}
-		}
+		}    
 	}
 
 	public static boolean canDelete(int x, int y) {
-		for(int i = 1; i <= N+1; ++i) {
-			for(int j = 1; j <= N+1; ++j) {
-				if(columns[x][y] && !canColumn(x, y)) { // 기둥 확인 
+		for(int i = 1; i <= N+1; i++) {
+			for(int j = 1; j <= N+1; j++) {
+				if(columns[i][j] && !canColumn(i, j))  // 기둥 확인 
 					return false;
-				}
 
-				if(beams[x][y] && !canBeam(x, y)) { // 보 확인 
+				if(beams[i][j] && !canBeam(i, j))  // 보 확인 
 					return false;
-				}
 			}
 		}
-
 		return true;
 	}
 
+
 	public static boolean canColumn(int x, int y) {
-		if(y == 1) { // 기둥이 바닥 위에 있을 때 
+		if(y == 1) { // 기둥이 바닥 위에 있을 때
 			return true;
 		} else if(beams[x][y] == true || beams[x-1][y] == true) { // 보의 한쪽 끝 부분 위에 있을 때 
 			return true;
@@ -143,27 +136,10 @@ public class ColumnsNBeams {
 	public static boolean canBeam(int x, int y) {
 		if(columns[x][y-1] == true || columns[x+1][y-1] == true) { // 한쪽 끝 부분이 기둥 위일 때 
 			return true;
-		} else if(beams[x+1][y] == true || beams[x-1][y] == true) { // 양쪽 끝 부분이 다른 보와 동시에 연결되어있을 때 
+		} else if(beams[x+1][y] == true && beams[x-1][y] == true) { // 양쪽 끝 부분이 다른 보와 동시에 연결되어있을 때 
 			return true;
 		}
 
 		return false;
 	}
-
 }
-
-class Node {
-	int x;
-	int y;
-	int a;
-
-	Node(int x, int y, int a) {
-		this.x = x;
-		this.y = y;
-		this.a = a;
-	}
-}
-
-
-
-
