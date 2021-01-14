@@ -43,13 +43,16 @@ public class LZW2 {
 
 	public static void makeLZW(String msg) {
 		StringBuffer sb = new StringBuffer();
+		
 		for(int i=0; i < msg.length(); i++) {
 			sb.append(msg.charAt(i));
+			
 			if(!map.containsKey(sb.toString())) {
 				map.put(sb.toString(), idx++);
 				sb.deleteCharAt(sb.length()-1);
 				list.add(map.get(sb.toString()));
 				makeLZW(msg.substring(sb.length()));
+				
 				return;
 			} else if(i == msg.length()-1) {
 				list.add(map.get(sb.toString()));
