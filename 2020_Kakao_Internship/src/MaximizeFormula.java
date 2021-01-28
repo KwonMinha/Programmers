@@ -1,3 +1,11 @@
+/**
+ * @author Minha Gwon
+ * @date 2021. 1. 29.
+ * 
+ * 2020 카카오 인턴십 - 수식 최대화  
+ * https://programmers.co.kr/learn/courses/30/lessons/67257
+ */
+
 import java.util.ArrayList;
 import java.util.HashSet;
 
