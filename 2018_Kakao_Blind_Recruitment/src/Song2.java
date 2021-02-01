@@ -68,53 +68,7 @@ public class Song2 {
 			
 			for(int j = 0; j < playTime; j++) {
 				sb.append(info.charAt(j % songTime));
-				//System.out.println(sb.toString());
 			}
-			
-			/*
-			// 몫
-			int a = minutes / paper.length;
-			// 나머지
-			int b = minutes % paper.length;
-
-			for (int j = 0; j < a; j++)
-				sb.append(arr[3]);
-			for (int j = 0; j < b; j++) {
-				sb.append(arr[3].charAt(j));
-			}
-			 */
-			
-			/*
-			if (t > time) {
-                info[3] = edit(info[3]);
-                StringBuffer sb = new StringBuffer();
-                for (int jnx = 0; jnx < t; jnx++) {
-                    sb.append(info[3].charAt(jnx % (info[3].length())));
-                }
-                if (sb.toString().indexOf(m) >= 0) {
-                    answer = info[2];
-                    time = t;
-                }
-            }
-			*/
-			
-			/*
-			int cnt = 0;
-			int pt = playTime;
-			while(pt != 0) {
-				if(pt >= musicTime) {
-					sb.append(info);
-					pt -= musicTime;
-				} else {
-					sb.append(info.charAt(cnt));
-					cnt++;
-					
-					if(cnt == musicTime)
-						cnt = 0;
-					pt--;
-				}
-			}
-			*/
 			
 			//전체 악보 중 m이 있다면, 그 중 재생 시간이 가장 긴 음악의 제목을 결과 변수에 넣음 
 			String melody = sb.toString();
