@@ -38,7 +38,7 @@ public class MenuRenewal2 {
 			for(int j = 0; j < orders.length; j++) 
 				combination(orders[j], "", course[i], 0);
 
-			// 뽑힌 조합들 중 max만큼 즉, 가장 많이 주문된 조합이고 2명 이상의 손님이 주문한 조합이면 정답 리스트에 추가 
+			// 뽑힌 조합들 중 max만큼 즉 가장 많이 주문되고, 2명 이상의 손님이 주문한 경우 정답리스트에 추가
 			for(String key : map.keySet()) {
 				if(map.get(key) == max && max > 1) 
 					answerList.add(key);
@@ -61,7 +61,7 @@ public class MenuRenewal2 {
 			for (int i = 0; i < c.length; i++)
 				temps += c[i];
 
-			// map에 저장 / 이미 key가 있다면 value에 +1 해서 저장 
+			// map에 저장 (이미 key가 있다면 value에 +1 해서 저장) 
 			map.put(temps, map.getOrDefault(temps, 0) + 1);
 			max = Math.max(max, map.get(temps));
 
