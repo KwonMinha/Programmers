@@ -10,7 +10,6 @@ import java.util.*;
 
 public class TaxiFare {
 	public static int[][] map;
-	public static int[] count;
 	public static int N;
 
 	public static void main(String[] args) {
@@ -38,61 +37,51 @@ public class TaxiFare {
 		}
 
 		// 합승 안하고 각자 이동할 경우 
+		int[] startCheck = new int[N+1];
+		Arrays.fill(startCheck, -1);
+		bfs(s, startCheck);
+		printCount(startCheck);
+		
 		System.out.println("\n합승 X - a : " + a + ", b : " + b + ", start : " + s);
-		answer = Math.min(answer, moveAB(s, a, b));
-		printCount();
-		System.out.println("answer : " + answer + "\n");
+		answer = Math.min(answer, (startCheck[a] + startCheck[b]));
+		System.out.println("answer : " + answer);
+		
 		
 		// 합승 
 		for(int i = 1; i <= N; i++) {
-			count = new int[n+1];
-
-			if(i != s) { // i는 합승해서 갈 곳 
-				System.out.println("\n합승 O - a : " + a + ", b : " + b + ", start : " + s);
-				bfs(s);
-				printCount();
-				if(count[i] != 0) {
-					answer = Math.min(answer, (count[i] - 1 + moveAB(i, a, b))); // bfs 시작점에 1을 넣었기 때문에 -1해줌 
-					System.out.println("answer : " + (count[i] - 1 + moveAB(i, a, b)));
-				}
+			if(i != s && startCheck[i] != -1) {
+				int carPool = startCheck[i];
+				int[] carPoolCheck = new int[N+1];
+				Arrays.fill(carPoolCheck, -1);
+				bfs(i, carPoolCheck);
+				printCount(carPoolCheck);
+	
+				
+				System.out.println("\n합승 i : " + i  + ", a : " + a + ", b : " + b + ", start car : " + i);
+				answer = Math.min(answer, (carPool + carPoolCheck[a] + carPoolCheck[b]));
+				System.out.println("answer : " + (carPool + carPoolCheck[a] + carPoolCheck[b]));
 			}
 		}
 
 		return answer;
 	}
 
-	public static int moveAB(int s, int a, int b) {
-		count = new int[N+1];
-
-		int fare = 0;
-		bfs(s);
-
-		// 스타트 지점이 a, b가 아닌 경우만 이동 
-		if(s != a) 
-			fare += count[a]-1; // bfs에서 시작점 1넣어줬으니 -1 해줌 
-
-		if(s != b)
-			fare += count[b]-1;
-
-		return fare;
-	}
-
-	public static void bfs(int start) {
+	public static void bfs(int start, int[] check) {
 		Queue<Integer> queue = new LinkedList<>();
 		queue.add(start);
-		count[start] = 1;
+		check[start] = 0;
 
 		while(!queue.isEmpty()) {
 			int v = queue.poll();
 
 			for(int i = 1; i <= N; i++) {
 				if(map[v][i] != 0) {
-					if(count[i] == 0) {
+					if(check[i] == -1) {
 						queue.add(i);
-						count[i] = count[v] + map[v][i];
-					} else if(count[i] >= (count[v] + map[v][i])) { //이미 갔던곳이라도 비용이 적으면 갱신 
+						check[i] = check[v] + map[v][i];
+					} else if(check[i] >= (check[v] + map[v][i])) { //이미 갔던곳이라도 비용이 적으면 갱신 
 						queue.add(i);
-						count[i] = count[v] + map[v][i];
+						check[i] = check[v] + map[v][i];
 					}
 
 				}
@@ -100,9 +89,9 @@ public class TaxiFare {
 		}
 	}
 
-	public static void printCount() {
+	public static void printCount(int[] count) {
 		for(int i = 1; i <= N; i++) {
-			System.out.println("i : " + i + ", count : " + (count[i]-1));
+			System.out.println("i : " + i + ", count : " + (count[i]));
 		}
 
 		System.out.println();
