@@ -28,6 +28,7 @@ public class TaxiFare {
 
 	public static int solution(int n, int s, int a, int b, int[][] fares) {
 		int answer = Integer.MAX_VALUE;
+		
 		N = n;
 		map = new int[n+1][n+1];
 		for(int i = 0; i < fares.length; i++) {
@@ -36,30 +37,30 @@ public class TaxiFare {
 			map[fare[1]][fare[0]] = fare[2];
 		}
 
-		// 합승 안하고 각자 이동할 경우 
+		// 합승 안하고 각자 이동할 경우 - BFS로 start부터 각 지점까지의 최소 비용 배열 구함 
 		int[] startCheck = new int[N+1];
 		Arrays.fill(startCheck, -1);
 		bfs(s, startCheck);
-		printCount(startCheck);
-		
-		System.out.println("\n합승 X - a : " + a + ", b : " + b + ", start : " + s);
 		answer = Math.min(answer, (startCheck[a] + startCheck[b]));
-		System.out.println("answer : " + answer);
+		
+		// 주석 
+		System.out.println("합승 X - a : " + a + ", b : " + b + ", start : " + s + "\n----------------------------------------");
+		printCount(startCheck);
+		System.out.println("answer : " + answer + "\n----------------------------------------");
 		
 		
 		// 합승 
 		for(int i = 1; i <= N; i++) {
-			if(i != s && startCheck[i] != -1) {
-				int carPool = startCheck[i];
+			if(i != s && startCheck[i] != -1) { // start 지점이 아니고, start에서부터 지나갈 수 있는 지점이라면 합승 비용 확인 
 				int[] carPoolCheck = new int[N+1];
 				Arrays.fill(carPoolCheck, -1);
 				bfs(i, carPoolCheck);
-				printCount(carPoolCheck);
-	
+				answer = Math.min(answer, (startCheck[i] + carPoolCheck[a] + carPoolCheck[b]));
 				
-				System.out.println("\n합승 i : " + i  + ", a : " + a + ", b : " + b + ", start car : " + i);
-				answer = Math.min(answer, (carPool + carPoolCheck[a] + carPoolCheck[b]));
-				System.out.println("answer : " + (carPool + carPoolCheck[a] + carPoolCheck[b]));
+				// 주석 
+				System.out.println("합승 i : " + i  + ", a : " + a + ", b : " + b + ", start carPool : " + i + "\n----------------------------------------");
+				printCount(carPoolCheck);
+				System.out.println("answer : " + (startCheck[i] + carPoolCheck[a] + carPoolCheck[b]) + "\n----------------------------------------");
 			}
 		}
 
