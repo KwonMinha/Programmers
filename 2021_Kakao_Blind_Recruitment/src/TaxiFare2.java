@@ -9,7 +9,7 @@
 import java.util.*;
 
 public class TaxiFare2 {
-	public static int INF = 10000000;
+	public static final int INF = 10000000;
 
 	public static void main(String[] args) {
 		int[][] fares = {{5, 7, 9}, {4, 6, 4}, {3, 6, 1}, {3, 2, 3}, {2, 1, 6}}	;
@@ -24,9 +24,8 @@ public class TaxiFare2 {
 		for(int i = 1; i <= n; i++) {
 			for(int j = 1; j <= n; j++) {
 				if(i == j)
-					map[i][j] = 0; // 자기 자신으로 가는 비용은 0 
-				else 
-					map[i][j] = INF; // 아직 비용을 모르니 무한대로 초기화 
+					continue; 
+				map[i][j] = INF; // 아직 비용을 모르니 무한대로 초기화 
 			}
 		}
 
@@ -42,11 +41,10 @@ public class TaxiFare2 {
 				for(int j = 1; j <= n; j++) { // 도착 노드 
 					//i에서 k를 거쳤다가 k에서 j 까지 가는 비용과 i에서 j 까지 가는 비용을 비교해서 더 작은 값이 최소 비용 거리 
 					map[i][j] = Math.min((map[i][k] + map[k][j]), map[i][j]);
-					//System.out.println(map[i][j]);
 				}
 			}
 		}
-		
+
 		// 합승 최소 비용 구하기 
 		int answer = Integer.MAX_VALUE;
 		for (int i = 1; i <= n; i++) {
