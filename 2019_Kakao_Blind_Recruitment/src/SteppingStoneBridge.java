@@ -67,9 +67,10 @@ public class SteppingStoneBridge {
 			}
 		}
 
-		return high-1; // 가능한 경우, 다음 mid 가능한지 확인하기 위해서 +1 했으니 리턴할 땐 -1 
+		return high-1; // cross의 반환값이 true인 경우에서, 다음 mid 가능한지 확인하기 위해서 +1 했으니 리턴할 땐 -1해서 반환 
 	}
 
+	// 현재 mid 값(인원)으로 징검다리를 건널 수 있는지 없는지 확인 
 	public static boolean cross(int[] stones, int k, int mid) {
 		int cnt = 0;
 
@@ -77,7 +78,7 @@ public class SteppingStoneBridge {
 			if (stone - mid < 0) { // 0보다 작아서 못 건너가면 cnt++
 				cnt++;
 			} else {
-				cnt = 0; // 0이상이면 건너갈 수 있으니 cnt 0으로 다시 갱신 
+				cnt = 0; // 0이상이면 건너갈 수 있음 - cnt 0으로 다시 갱신 
 			}
 
 			if (cnt == k) // 못 건너서 쌓인 cnt의 값이 건널 수 있는 최대칸 수 k를 넘으면 현재 mid 값으로는 건널 수 없음 
