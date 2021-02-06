@@ -14,11 +14,17 @@ public class Immigration {
 	}
 
 	public static long solution(int n, int[] times) {
+		long max = Long.MIN_VALUE;
+		for(int i = 0; i < times.length; i++) // 최대 심사 소요 시간 
+			max = Math.max(max, times[i]);
+		
 		long answer = Long.MAX_VALUE;
+		
 		long low = 1;
-		long high = 1000000000;
+		long high = max * n; // 최대 전체 심사 시간 = 최대 심사 소요 시간 * 심사 대기자 
 		long mid = 0;
 
+		// 이진 탐색 수행 
 		while(low <= high) {
 			mid = (low + high) / 2;
 
@@ -37,15 +43,10 @@ public class Immigration {
 		long cnt = 0;
 
 		for(int i = 0; i < times.length; i++) {
-			long time = times[i];
-			while(time <= mid) {
-				cnt++;
-				time += times[i];
-			}
+			cnt += mid / times[i]; // mid 시간동안 각 심사관이 몇명을 심사하는지 저장 
 
-			if(cnt >= n) {
+			if(cnt >= n) // 심사 대기자 n명 모두 심사할 수 있는 경우 
 				return true;
-			}
 		}
 
 		return false;
