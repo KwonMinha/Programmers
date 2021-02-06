@@ -54,5 +54,4 @@ public class SteppingStoneBridge3 {
 		return true; // 다 통과하면 건널 수 있음 
 	}
 
-
 }

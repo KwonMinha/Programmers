@@ -55,5 +55,4 @@ public class SteppingStoneBridge2 {
 		return answer;
 	}
 
-
 }
