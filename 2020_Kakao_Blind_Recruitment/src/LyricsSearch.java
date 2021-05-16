@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -10,7 +9,6 @@ public class LyricsSearch {
 
 		int[] ans = solution(words, queries);
 		System.out.println(Arrays.toString(ans));
-
 	}
 
 	public static int[] solution(String[] words, String[] queries) {
