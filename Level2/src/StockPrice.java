@@ -10,7 +10,7 @@ import java.util.*;
 public class StockPrice {
 
 	public static void main(String[] args) {
-		int[] prices = {1, 2, 3, 2, 3, 1};
+		int[] prices = {1, 2, 3, 2, 3};
 		int[] ans = solution(prices);
 		System.out.println(Arrays.toString(ans));
 	}
@@ -18,18 +18,18 @@ public class StockPrice {
 	public static int[] solution(int[] prices) {
 		int[] answer = new int[prices.length];
 
-		Stack<Integer> stack = new Stack<>();
-		stack.push(prices[prices.length-1]);
-		answer[prices.length-1] = 0;
-
-		for(int i = prices.length-2; i >=0 ; i--) {
-			if(stack.peek() >= prices[i]) {
-				answer[i] = stack.size();
-			} else {
-				answer[i] = 1;
+		for(int i = 0; i < prices.length; i++) {
+			int cnt = 0;
+			
+			for(int j = i+1; j < prices.length; j++) {
+				if(prices[i] > prices[j]) {
+					cnt++;
+					break;
+				} else {
+					cnt++;
+				}
 			}
-			stack.push(prices[i]);
-
+			answer[i] = cnt;
 		}
 
 		return answer;
