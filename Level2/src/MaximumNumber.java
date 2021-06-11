@@ -23,20 +23,17 @@ public class MaximumNumber {
 		Arrays.sort(num, new Comparator<String>() {
 			@Override
 			public int compare(String o1, String o2) {
-				int n1 = Integer.parseInt(o1+o2);
-				int n2 = Integer.parseInt(o2+o1);
-
-				if(n1 <= n2) {
-					return 1;
-				} else {
-					return -1;
-				}
+				return (o2 + o1).compareTo(o1 + o2);
 			}
 		});
-		
+
 		String answer = "";
 		for(int i = 0; i < num.length; i++) {
 			answer += num[i];
+		}
+		
+		if(answer.charAt(0) == '0') { // 0000 같은 경우 예외 처리 
+			return "0";
 		}
 
 		return answer;
