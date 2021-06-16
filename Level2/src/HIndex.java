@@ -3,6 +3,10 @@
  * @date 2021. 6. 16.
  * Level2 - 정렬 - H-Index
  * https://programmers.co.kr/learn/courses/30/lessons/42747
+ * 
+ * 전체 논문중 많이 인용된 순으로 정렬한 후, 
+   피인용수가 논문수와 같아지거나 피인용수가 논문수보다 작아지기 시작하는 숫자가 바로 나의 h가 됩니다. 
+   출처: H-지수(H-Index) 란 무엇인가? ( https://www.ibric.org/myboard/read.php?Board=news&id=270333 )
  */
 
 import java.util.Arrays;
@@ -16,19 +20,14 @@ public class HIndex {
 
 	public static int solution(int[] citations) {
 		Arrays.sort(citations);
-		int h = 0;
-		int len = citations.length;
+	
 		for(int i = 0; i < citations.length; i++) {
-			if(h < citations[i] && citations[i] < len) {
-				if(len-i > citations[i]) {
-					h = citations[i];
-				} else {
-					h++;
-				}
-			}
+			if(citations[i] >= citations.length-i) {
+				return citations.length-i;
+			} 
 		}
-
-		return h;
+		
+		return 0;
 	}
 
 }
