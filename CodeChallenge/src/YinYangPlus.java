@@ -5,8 +5,6 @@
  * https://programmers.co.kr/learn/courses/30/lessons/76501
  */
 
-import java.util.*;
-
 public class YinYangPlus {
 
 	public static void main(String[] args) {
