@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="SmartImportWizard">
+		<item key="SmartImportRootWizardPage.STORE_HIDE_ALREADY_OPEN" value="false"/>
+		<item key="SmartImportRootWizardPage.STORE_CLOSE_IMPORTED" value="false"/>
+		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
+		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
+		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="/Users/minha/Downloads/WORKSPACE/Programmers/Level4"/>
+			<item value="/Users/minha/Downloads/WORKSPACE/Programmers/Level3"/>
+			<item value="/Users/minha/Downloads/WORKSPACE/Programmers/Level2"/>
+			<item value="/Users/minha/Downloads/WORKSPACE/Programmers/DFS_BFS"/>
+			<item value="/Users/minha/Downloads/WORKSPACE/Programmers/CodingTest"/>
+			<item value="/Users/minha/Downloads/WORKSPACE/Programmers/CodeChallenge"/>
+			<item value="/Users/minha/Downloads/WORKSPACE/Programmers/2021_Kakao_Blind_Recruitment"/>
+			<item value="/Users/minha/Downloads/WORKSPACE/Programmers/2020_Kakao_Internship"/>
+			<item value="/Users/minha/Downloads/WORKSPACE/Programmers/2020_Kakao_Blind_Recruitment"/>
+			<item value="/Users/minha/Downloads/WORKSPACE/Programmers/2019_Kakao_Blind_Recruitment"/>
+			<item value="/Users/minha/Downloads/WORKSPACE/Programmers/2018_Kakao_Blind_Recruitment"/>
+		</list>
+	</section>
+</section>

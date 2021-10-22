@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="2021_Kakao_Blind_Recruitment"/>
+	<classpathentry kind="src" path="2021_Programmers_Internship"/>
+	<classpathentry kind="src" path="2021_SaraminHR"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
